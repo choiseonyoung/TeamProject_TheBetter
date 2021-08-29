@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>드래그앤드롭</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        /* display: flex;
+        justify-content: center; */
+      }
+      .drag_box {
+        width: 1200px;
+        height: 600px;
+        margin: auto;
+        background-color: #eee;
+        position: relative;
+        /* overflow: hidden; */
+      }
+      .puzzle_num {
+        position: absolute;
+        /* fill: rgb(243, 114, 44); */
+        cursor: pointer;
+      }
+      .xy {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="drag_box">
+      <img
+        class="puzzle_num"
+        src="/img/puzzle_num.svg"
+        width="92px"
+        height="80px"
+      />
+    </div>
+    <div class="xy"></div>
+  </body>
+  <script>
+    const container = document.querySelector(".drag_box");
+    const puzzle = container.querySelector(".puzzle_num");
+    let x = 0;
+    let y = 0;
+    let dragging = false; // 마우스 다운된 상태냐?
+    let offset = { x: 0, y: 0 };
+    let xy = document.querySelector(".xy");
+    // 컨테이너박스 안에서의 좌표값 알기 위해 (X)
+    // 컨테이너박스 위치
+    let con_left = container.offsetLeft;
+    let con_top = container.offsetTop;
+    // 컨테이너박스 밖으로 퍼즐 못 넘어가게 이 x,y가 한계치 되도록
+    const maxX =
+      container.getBoundingClientRect().width -
+      puzzle.getBoundingClientRect().width;
+    const maxY =
+      container.getBoundingClientRect().height -
+      puzzle.getBoundingClientRect().height;
+
+    // 마우스가 눌려있을 때
+    document.addEventListener("mousedown", (e) => {
+      // 컨테이너가 아닌 정확히 퍼즐을 선택했을 때만 실행되게
+      if (e.target === puzzle) dragging = true;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!dragging) return;
+      // dragging 상태일 때만 실행되게
+
+      x = e.pageX - con_left - offset.x;
+      y = e.pageY - con_top - offset.y;
+
+      // 퍼즐이 컨테이너 박스 밖으로 못나가게
+      // -값이 되면 0이 최댓값되도록
+      // 컨테이너 크기보다 커지면 무조건 x값이 작은거니까 x값 선택되도록
+      puzzle.style.left = Math.min(Math.max(0, x), maxX) + "px";
+      puzzle.style.top = Math.min(Math.max(0, y), maxY) + "px";
+
+      xy.innerText = "(x, y) : (" + x + "," + y + ")";
+    });
+
+    document.addEventListener("mouseup", (e) => {
+      dragging = false;
+    });
+
+    // puzzle.addEventListener("mousedown", (e) => {
+    //   offset.x = e.offsetX;
+    //   offset.y = e.offsetY;
+    // });
+  </script>
+</html>

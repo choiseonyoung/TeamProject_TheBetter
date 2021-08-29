@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>드래그앤드롭</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+      }
+      .puzzle_box {
+        width: 150px;
+        height: 500px;
+      }
+      .drag_box {
+        width: 1200px;
+        height: 750px;
+        background-color: #eee;
+        position: relative;
+        /* overflow: hidden; */
+      }
+      .puzzle_num {
+        position: absolute;
+        width: 92px;
+        height: 80px;
+        margin: auto;
+        z-index: 1;
+        /* fill: rgb(243, 114, 44); */
+        cursor: pointer;
+      }
+      .xy {
+        width: 50px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="puzzle_box">
+      <img data-id="rootPuzzle" class="puzzle_num" src="/img/puzzle_num.svg" />
+    </div>
+    <div class="drag_box"></div>
+    <div class="xy"></div>
+  </body>
+  <script>
+    const pbox = document.querySelector(".puzzle_box");
+    const dbox = document.querySelector(".drag_box");
+    const puzzle = document.querySelector(".puzzle_num");
+    const rootPuzzle = document.querySelector('img[data-id="rootPuzzle"]');
+    let x = 0;
+    let y = 0;
+    let dragging = false; // 마우스 다운된 상태냐?
+    let offset = { x: 0, y: 0 };
+    let xy = document.querySelector(".xy");
+    // 컨테이너박스 안에서의 좌표값 알기 위해 (X)
+    // 컨테이너박스 위치
+    let con_left = dbox.offsetLeft;
+    let con_top = dbox.offsetTop;
+    // 컨테이너박스 밖으로 퍼즐 못 넘어가게 이 x,y가 한계치 되도록
+    const maxX =
+      dbox.getBoundingClientRect().width - puzzle.getBoundingClientRect().width;
+    const maxY =
+      dbox.getBoundingClientRect().height -
+      puzzle.getBoundingClientRect().height;
+    let i = 1;
+    let current = null;
+
+    // 마우스가 눌려있을 때
+    document.addEventListener("mousedown", (e) => {
+      // 정확히 퍼즐을 선택했을 때만 실행되게
+      if (e.target === puzzle) dragging = true;
+      if (e.target === rootPuzzle) {
+        let newNode = rootPuzzle.cloneNode();
+        current = newNode;
+        newNode.dataset.id = Math.random().toString(36).substr(2, 10);
+        // 10자리랜덤문자열생성
+        newNode.dataset.num = i++;
+        newNode.style.zIndex = 2;
+        newNode.style.left = e.pageX + "px";
+        newNode.style.top = e.pageY + "px";
+        document.body.appendChild(newNode);
+      } else {
+        current = e.target;
+      }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (dragging) {
+        // x = e.pageX - con_left - offset.x;
+        // y = e.pageY - con_top - offset.y;
+
+        //    let clonePuzzle = document.querySelector(".puzzle_num".dataset.num;
+        // let clonePuzzle = document.querySelector(e.target.dataset.id);
+        current.style.left = e.pageX + "px";
+        current.style.top = e.pageY + "px";
+
+        // 퍼즐이 컨테이너 박스 밖으로 못나가게
+        // -값이 되면 0이 최댓값되도록
+        // 컨테이너 크기보다 커지면 무조건 x값이 작은거니까 x값 선택되도록
+        // puzzle.style.left = Math.min(Math.max(0, x), maxX) + "px";
+        // puzzle.style.top = Math.min(Math.max(0, y), maxY) + "px";
+
+        xy.innerText = "(x, y) : (" + x + "," + y + ")";
+      }
+    });
+
+    document.addEventListener("mouseup", (e) => {
+      dragging = false;
+      //   alert(current.dataset.id);
+    });
+
+    // puzzle.addEventListener("mousedown", (e) => {
+    //   offset.x = e.offsetX;
+    //   offset.y = e.offsetY;
+    // });
+  </script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        width: 800px;
+        height: 400px;
+        border: 1px solid gray;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background: blue;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="section8">
+      <div class="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </section>
+  </body>
+  <script>
+    window.addEventListener("load", function () {
+      var section = document.querySelector("#section8");
+      var container = section.querySelector(".container");
+      var box = section.querySelector(".box");
+      var dragging = false;
+      var offset = { x: 0, y: 0 };
+      var current = null;
+
+      container.onmousedown = function (e) {
+        if (e.target.classList.contains(".box")) {
+          dragging = true;
+          current = e.target;
+          offset.x = e.offsetX;
+          offset.y = e.offsetY;
+        }
+      };
+
+      container.onmousemove = function (e) {
+        if (!dragging) return;
+
+        current.style.left = e.pageX - offset.x + "px";
+        corrent.style.top = e.pageY - offset.y + "px";
+      };
+
+      container.onmouseup = function (e) {
+        dragging = false;
+      };
+    });
+  </script>
+</html>
