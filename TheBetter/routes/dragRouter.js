@@ -5,7 +5,7 @@ router.get("/", (req, res) => {
   res.render("drag");
 });
 
-router.get("/v2", (req, res) => {
+router.get("/2", (req, res) => {
   res.render("drag2");
 });
 

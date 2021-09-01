@@ -6,45 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>드래그앤드롭</title>
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        width: 100vw;
-        height: 100vh;
-        /* display: flex;
-        justify-content: center; */
-      }
-      .drag_box {
-        width: 1200px;
-        height: 600px;
-        margin: auto;
-        background-color: #eee;
-        position: relative;
-        /* overflow: hidden; */
-      }
       .puzzle_num {
         position: absolute;
+        width: 92px;
+        height: 80px;
+        margin: auto;
+        z-index: 1;
         /* fill: rgb(243, 114, 44); */
         cursor: pointer;
       }
       .xy {
         width: 100%;
-        margin: auto;
         text-align: center;
       }
     </style>
   </head>
   <body>
-    <div class="drag_box">
-      <img
-        class="puzzle_num"
-        src="/img/puzzle_num.svg"
-        width="92px"
-        height="80px"
-      />
+    <%- include('include.ejs') %>
+    <div class="main_box">
+      <div class="drag_box">
+        <img
+          class="puzzle_num"
+          src="/img/puzzle_num.svg"
+          width="92px"
+          height="80px"
+        />
+      </div>
     </div>
     <div class="xy"></div>
   </body>

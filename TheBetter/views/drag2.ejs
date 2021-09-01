@@ -6,28 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>드래그앤드롭</title>
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-      }
       .puzzle_box {
         width: 150px;
         height: 500px;
+        text-align: center;
       }
-      .drag_box {
-        width: 1200px;
-        height: 750px;
-        background-color: #eee;
-        position: relative;
-        /* overflow: hidden; */
-      }
+
       .puzzle_num {
         position: absolute;
         width: 92px;
@@ -44,11 +28,17 @@
     </style>
   </head>
   <body>
-    <div class="puzzle_box">
-      <img data-id="rootPuzzle" class="puzzle_num" src="/img/puzzle_num.svg" />
+    <%- include('include.ejs') %>
+    <div class="main_box">
+      <div class="puzzle_box">
+        <img
+          data-id="rootPuzzle"
+          class="puzzle_num"
+          src="/img/puzzle_num.svg"
+        />
+      </div>
+      <div class="drag_box"></div>
     </div>
-    <div class="drag_box"></div>
-    <div class="xy"></div>
   </body>
   <script>
     const pbox = document.querySelector(".puzzle_box");
