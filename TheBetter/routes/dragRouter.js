@@ -22,4 +22,8 @@ router.get("/snap", (req, res) => {
   res.render("snap");
 });
 
+router.get("/4", (req, res) => {
+  res.render("index2");
+});
+
 module.exports = router;

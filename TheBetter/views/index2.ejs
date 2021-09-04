@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Better</title>
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <style>
+      div#wrap {
+        width: 100vw;
+        height: 820px;
+        display: flex;
+      }
+
+      div#wrap div {
+        display: inline-block;
+      }
+
+      div.sideBar {
+        width: 260px;
+        background-color: blueviolet;
+        height: 820px;
+      }
+
+      div.pallett1 {
+        background-color: blanchedalmond;
+        width: 190px;
+        height: 500px;
+      }
+
+      div.pallett1 img.puzzle {
+        width: 76.6px;
+        height: 80px;
+        /*드래그에 따라 위치값이 정해지기 떄문에 포지션 absolute로 변경*/
+        position: absolute;
+        -webkit-user-drag: none;
+      }
+
+      div.pallett2 {
+        background-color: chocolate;
+        width: 190px;
+        height: 200px;
+      }
+
+      div.pallett2 img.puzzle {
+        width: 92px;
+        height: 80px;
+        position: absolute;
+        -webkit-user-drag: none;
+      }
+
+      div.sketchBook_box {
+        width: 1400px;
+        height: 820px;
+        background-color: burlywood;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      div.sketchBook {
+        width: 1380px;
+        height: 750px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('header_menu.ejs') %>
+
+    <div id="wrap">
+      <div class="sideBar">
+        <div class="pallett1">
+          <img data-id="rootPuzzle" class="puzzle" src="/img/puzzle_oper.svg" />
+        </div>
+
+        <div class="pallett2">
+          <img data-id="rootPuzzle" class="puzzle" src="/img/puzzle_num.svg" />
+        </div>
+      </div>
+      <div class="sketchBook_box">
+        <div class="sketchBook" droppable="true"></div>
+      </div>
+      <div class="sideBar"></div>
+    </div>
+  </body>
+
+  <script src="/js/puzzle_copy2.js"></script>
+</html>
