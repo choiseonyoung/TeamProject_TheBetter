@@ -38,7 +38,7 @@
       var current = null;
 
       container.onmousedown = function (e) {
-        if (e.target.classList.contains(".box")) {
+        if (e.target.classList.contains("box")) {
           dragging = true;
           current = e.target;
           offset.x = e.offsetX;
@@ -50,7 +50,7 @@
         if (!dragging) return;
 
         current.style.left = e.pageX - offset.x + "px";
-        corrent.style.top = e.pageY - offset.y + "px";
+        current.style.top = e.pageY - offset.y + "px";
       };
 
       container.onmouseup = function (e) {
